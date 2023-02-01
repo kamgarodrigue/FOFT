@@ -12,12 +12,15 @@ class Fiche {
       motif,
       signatureDelegue,
       signatureEnseignant,
-      state;
-  Map semestre, niveau, salle, ue;
+      state,
+      semestre;
+  Map niveau, salle, ue, specialite, seance;
   Enseignant enseignant;
   Delegue delegue;
   Fiche(
       {required this.contenu,
+      required this.seance,
+      required this.specialite,
       required this.date,
       required this.delegue,
       required this.enseignant,
@@ -35,20 +38,22 @@ class Fiche {
       required this.salle,
       required this.ue});
   factory Fiche.fromJson(Map<String, dynamic> json) => Fiche(
-      niveau: json["contenu"],
+      seance: json["seance"],
+      niveau: json["niveau"],
+      specialite: json["specialite"],
       salle: json["salle"],
       contenu: json["contenu"],
       date: json["date"],
       delegue: Delegue.fromJson(json["delegue"]),
       enseignant: Enseignant.fromJson(json["enseignant"]),
-      heureDebut: json["heureDebut"],
-      heureFin: json["heureFin"],
+      heureDebut: json["heureDeDebut"],
+      heureFin: json["heureDeFin"],
       id: json["id"].toString(),
       motif: json["motif"],
       semestre: json["semestre"],
       signatureDelegue: json["signatureDelegue"],
       signatureEnseignant: json["signatureEnseignant"],
-      state: json["state"],
+      state: json["state"].toString(),
       titre: json["titre"],
       totalHoraire: json["totalHoraire"],
       ue: json["ue"]);
@@ -58,8 +63,8 @@ class Fiche {
         "semestre": semestre,
         "titre": titre,
         "date": date,
-        "heureDebut": heureDebut,
-        "heureFin": heureFin,
+        "heureDeDebut": heureDebut,
+        "heureDeFin": heureFin,
         "totalHoraire": totalHoraire,
         "contenu": contenu,
         "motif": motif,
@@ -70,5 +75,7 @@ class Fiche {
         "delegue": delegue.toJson(),
         "ue": ue,
         "salle": salle,
+        "specialite": specialite,
+        "seance": seance
       };
 }

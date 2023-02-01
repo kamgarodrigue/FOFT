@@ -43,9 +43,8 @@ class Data extends ChangeNotifier {
   }
 
   Future ue(semestre, niveau) async {
-    print(semestre + niveau);
     Dio.Response response = await dio().get(
-      "uniteEnseignements/$semestre/$niveau",
+      "uniteEnseignements/$semestre/${niveau}",
     );
     _UE = decodeList(response.data);
     notifyListeners();

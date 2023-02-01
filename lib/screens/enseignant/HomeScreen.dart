@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foft/colors.dart';
+import 'package:foft/screens/enseignant/fiche_valider_enseignant.dart';
 import 'package:foft/screens/enseignant/home1.dart';
 import 'package:foft/screens/add_fiche.dart';
+import 'package:foft/screens/enseignant/reject_fiche_enseignant.dart';
 import 'package:foft/screens/home_page.dart';
 import 'package:foft/screens/reject_fiche.dart';
 
@@ -11,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Widget _affichePage = HomePage();
+  Widget _affichePage = HomeEnseignent();
   int _current = 0;
   bool one = true, two = false;
   void _change(int index) {
@@ -32,13 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
         one = false;
         two = false;
 
-        return Container();
+        return FicheValiderEnseignant();
         break;
 
       case 2:
         one = false;
         two = true;
-        return RejectFiche();
+        return RejectFicheEnseignant();
         break;
     }
     return Container();

@@ -7,13 +7,40 @@ import 'package:dio/dio.dart' as Dio;
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 
-class FicheService extends ChangeNotifier {
+class FicheEnseignantService extends ChangeNotifier {
   List<Fiche> _ficheattente = [];
   List<Fiche> _ficherejeter = [];
   List<Fiche> _fichevalider = [];
   List<Fiche> get ficheattente => _ficheattente;
   List<Fiche> get ficherejeter => _ficherejeter;
   List<Fiche> get fichevalider => _fichevalider;
+
+  Future rejeterfiche(id, motif) async {
+    print(id.toString());
+
+    Dio.Response response = await dio().put("updateFicheMotif/$id",
+        data: Dio.FormData.fromMap({"motif": motif}));
+    print(response);
+    return response;
+  }
+
+  Future validerfiche(id, image, Fiche fiche) async {
+    var request = http.MultipartRequest("PUT",
+        Uri.parse("http://192.168.0.100:8080/addSignatureEnseignant/$id"));
+    request.files.add(await http.MultipartFile.fromBytes(
+      "signature",
+      image,
+      filename: "${fiche.enseignant.nom}signature.png",
+      contentType: MediaType("image", "png"),
+    ));
+
+    var response = await request.send();
+    var responsed = await http.Response.fromStream(response);
+    final Responsedata = json.decode(responsed.body);
+    print(Responsedata.toString());
+
+    return responsed.body;
+  }
 
   Future addFiche(Fiche fiche, imag) async {
     //print(fiche.enseignant.id);
@@ -38,8 +65,8 @@ class FicheService extends ChangeNotifier {
       "specialite": fiche.specialite["id"].toString(),
       "seance": fiche.seance["id"].toString()
     };
-    var request =
-        http.MultipartRequest("POST", Uri.parse(baseurl + "/createFiche"));
+    var request = http.MultipartRequest(
+        "POST", Uri.parse("http://192.168.0.100:8080/createFiche"));
     request.files.add(await http.MultipartFile.fromBytes(
       "signatureDelegue",
       imag,
@@ -56,17 +83,10 @@ class FicheService extends ChangeNotifier {
     return responsed.body;
   }
 
-  Future Updatefiche(Fiche fiche) async {
-    Dio.Response response =
-        await dio().put("Fiche/${fiche.id}", data: fiche.toJson());
-    print(response);
-    return response;
-  }
-
-  Future Fichevalider(iddelegue, state) async {
-    print(iddelegue.toString() + state.toString());
+  Future Fichevalider(idEnseignant, state) async {
+    print(idEnseignant.toString() + state.toString());
     Dio.Response response = await dio().get(
-      "fichedelegueandstate/$iddelegue/$state",
+      "fichebyenseignantandstate/$idEnseignant/$state",
     );
     _fichevalider = decodeList(response.data);
 
@@ -77,7 +97,7 @@ class FicheService extends ChangeNotifier {
   Future FicheAttente(iddelegue, state) async {
     print(iddelegue.toString() + state.toString());
     Dio.Response response = await dio().get(
-      "fichedelegueandstate/$iddelegue/$state",
+      "/fichebyenseignantandstate/$iddelegue/$state",
     );
     print(response.data);
     _ficheattente = decodeList(response.data);
@@ -85,10 +105,10 @@ class FicheService extends ChangeNotifier {
     return response;
   }
 
-  Future Ficherejeter(iddelegue, state) async {
-    print(iddelegue.toString() + state.toString());
+  Future Ficherejeter(idEnseignant, state) async {
+    print(idEnseignant.toString() + state.toString());
     Dio.Response response = await dio().get(
-      "fichedelegueandstate/$iddelegue/$state",
+      "/fichebyenseignantandstate/$idEnseignant/$state",
     );
     _ficherejeter = decodeList(response.data);
     notifyListeners();

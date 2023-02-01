@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foft/api/AuthService.dart';
+import 'package:foft/api/FicheService.dart';
+import 'package:foft/api/date.dart';
 import 'package:foft/colors.dart';
 import 'package:foft/components/card_fiche.dart';
 import 'package:foft/screens/fiche_attente.dart';
@@ -13,10 +15,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<void> refrech() async {}
+  Future<void> refrech() async {
+    context
+        .read<FicheService>()
+        .Fichevalider(context.read<AuthService>().user!.id, 1)
+        .then((value) => print(value));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<FicheService>()
+        .FicheAttente(context.read<AuthService>().user!.id, 0);
+    context
+        .read<FicheService>()
+        .Ficherejeter(context.read<AuthService>().user!.id, 2);
+    context
+        .read<FicheService>()
+        .Fichevalider(context.read<AuthService>().user!.id, 1)
+        .then((value) => print(value));
+
+    context.read<Data>().niveaux();
+    context.read<Data>().salles();
+    context.read<Data>().seances();
+    context.read<Data>().specialites();
+
+    context.read<Data>().enseignants();
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthService>();
+    final fiche = context.watch<FicheService>();
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
@@ -73,9 +104,10 @@ class _HomePageState extends State<HomePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
-                    5,
+                    fiche.fichevalider.length,
                     (index) => CardFiche(
                           isEnsignant: false,
+                          fiche: fiche.fichevalider[index],
                           ismodifier: false,
                           isrejet: false,
                         )),

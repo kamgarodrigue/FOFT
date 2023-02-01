@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:foft/api/DioClient.dart';
 import 'package:foft/colors.dart';
+import 'package:foft/modal/fiche.dart';
 import 'package:foft/screens/enseignant/detail_fiche_enseignant.dart';
+import 'package:foft/screens/update_fiche.dart';
 
 class CardFiche extends StatefulWidget {
   bool isrejet, ismodifier, isEnsignant;
+  Fiche fiche;
   CardFiche(
       {Key? key,
       required this.ismodifier,
       required this.isrejet,
+      required this.fiche,
       required this.isEnsignant})
       : super(key: key);
 
@@ -18,12 +23,14 @@ class CardFiche extends StatefulWidget {
 class _CardFicheState extends State<CardFiche> {
   @override
   Widget build(BuildContext context) {
+    //print(widget.fiche.toJson());
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailFicheEnseignant(),
+              builder: (context) => DetailFicheEnseignant(
+                  isEnsignant: widget.isEnsignant, fiche: widget.fiche),
             ));
       },
       child: Container(
@@ -35,17 +42,26 @@ class _CardFicheState extends State<CardFiche> {
             color: graycolor, borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
-            widget.ismodifier
+            widget.ismodifier || widget.isrejet
                 ? ListTile(
                     trailing: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  UpdateFiche(fiche: widget.fiche),
+                            ));
+                      },
                       child: Image.asset(
                         "assets/images/Vector (5).png",
                       ),
                     ),
                     leading: CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage("assets/images/p1.jpg")),
-                    title: Text("Dr. MONTHE VALERY",
+                        backgroundImage: NetworkImage(
+                            baseurl + "${widget.fiche.enseignant.photo}")),
+                    title: Text("${widget.fiche.enseignant.nom}",
                         style: TextStyle(
                             color: kBlack, fontSize: 16, fontFamily: 'Bold')),
                     subtitle: Text("IL YA ENVIRON 3 MINUTES",
@@ -55,8 +71,9 @@ class _CardFicheState extends State<CardFiche> {
                 : ListTile(
                     leading: CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage("assets/images/p1.jpg")),
-                    title: Text("Dr. MONTHE VALERY",
+                        backgroundImage: NetworkImage(
+                            baseurl + "${widget.fiche.enseignant.photo}")),
+                    title: Text("${widget.fiche.enseignant.nom}",
                         style: TextStyle(
                             color: kBlack, fontSize: 16, fontFamily: 'Bold')),
                     subtitle: Text("IL YA ENVIRON 3 MINUTES",
@@ -67,7 +84,7 @@ class _CardFicheState extends State<CardFiche> {
                 text: TextSpan(
                     children: [
                   TextSpan(
-                      text: "3",
+                      text: "${widget.fiche.niveau["intitule"]}",
                       style: TextStyle(
                           color: kLinckColor,
                           fontSize: 17,
@@ -83,13 +100,13 @@ class _CardFicheState extends State<CardFiche> {
                 text: TextSpan(
                     children: [
                   TextSpan(
-                      text: " fin diagramme uml",
+                      text: " ${widget.fiche.titre}",
                       style: TextStyle(
                           color: kLinckColor,
                           fontSize: 17,
                           fontFamily: 'Medium'))
                 ],
-                    text: "TD: ",
+                    text: "Seance: ${widget.fiche.seance["nom"]}",
                     style: TextStyle(
                         color: kBlack, fontSize: 17, fontFamily: 'Medium'))),
             SizedBox(
@@ -99,8 +116,7 @@ class _CardFicheState extends State<CardFiche> {
               Container(
                 height: 40,
                 width: 281,
-                child: Text(
-                    "Vous avez mal ecrit mon nom, la durré est mal entrer l ue est fausse Vous avez mal ecrit mon nom, la durré est mal entrer l ue est fausse Vous avez mal ecrit mon nom, la durré est mal entrer l ue est fausse",
+                child: Text("${widget.fiche.motif.toString()}",
                     maxLines: 3,
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,

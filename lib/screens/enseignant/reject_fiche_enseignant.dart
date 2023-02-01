@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:foft/api/AuthService.dart';
 import 'package:foft/api/AuthServiceEnseignant.dart';
+import 'package:foft/api/FicheEnseignantService.dart';
 import 'package:foft/api/FicheService.dart';
 import 'package:foft/colors.dart';
 import 'package:foft/components/card_fiche.dart';
 import 'package:foft/screens/fiche_attente.dart';
 import 'package:provider/provider.dart';
 
-class RejectFiche extends StatefulWidget {
-  RejectFiche({Key? key}) : super(key: key);
+class RejectFicheEnseignant extends StatefulWidget {
+  RejectFicheEnseignant({Key? key}) : super(key: key);
 
   @override
-  State<RejectFiche> createState() => _RejectFicheState();
+  State<RejectFicheEnseignant> createState() => _RejectFicheEnseignantState();
 }
 
-class _RejectFicheState extends State<RejectFiche> {
+class _RejectFicheEnseignantState extends State<RejectFicheEnseignant> {
   Future<void> refrech() async {
     context
-        .read<FicheService>()
-        .Ficherejeter(context.read<AuthService>().user!.id, 2)
+        .read<FicheEnseignantService>()
+        .Ficherejeter(context.read<AuthEnseignantService>().user!.id, 2)
         .then((value) => print(value));
   }
 
@@ -41,6 +42,7 @@ class _RejectFicheState extends State<RejectFiche> {
           elevation: 0,
           centerTitle: false,
           actions: [
+            /*
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -51,7 +53,7 @@ class _RejectFicheState extends State<RejectFiche> {
               },
               child: Image.asset("assets/images/Vector (5).png",
                   color: kLinckColor),
-            )
+            ) */
           ],
           backgroundColor: whiteColor,
           title: RichText(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foft/api/AuthService.dart';
+import 'package:foft/api/AuthServiceEnseignant.dart';
+import 'package:foft/api/FicheEnseignantService.dart';
 import 'package:foft/api/FicheService.dart';
 import 'package:foft/api/date.dart';
-//import 'package:foft/screens/Enseignant.dart/HomeScreen.dart';
+//import 'package:foft/screens/enseignant/HomeScreen.dart';
 import 'package:foft/screens/HomeScreen.dart';
+//import 'package:foft/screens/enseignant/login.dart';
 import 'package:foft/screens/login.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +16,8 @@ void main() {
       ChangeNotifierProvider(create: (context) => AuthService()),
       ChangeNotifierProvider(create: (context) => Data()),
       ChangeNotifierProvider(create: (context) => FicheService()),
+      ChangeNotifierProvider(create: (context) => FicheEnseignantService()),
+      ChangeNotifierProvider(create: (context) => AuthEnseignantService()),
     ],
     child: MyApp(),
   ));
@@ -25,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = context.watch<AuthService>();
-
+    //final authService = context.watch<AuthEnseignantService>();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

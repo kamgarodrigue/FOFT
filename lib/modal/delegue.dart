@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 class Delegue {
-  String id, nom, email, matricule, password, photo, niveau;
+  String id, nom, email, matricule, password, photo;
+  Map niveau;
   Delegue(
       {required this.email,
       required this.id,

@@ -4,18 +4,19 @@ import 'package:dio/dio.dart' as Dio;
 
 import 'package:flutter/cupertino.dart';
 import 'package:foft/api/DioClient.dart';
-import 'package:foft/modal/delegue.dart';
+import 'package:foft/modal/enseignant.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class AuthService extends ChangeNotifier {
+class AuthEnseignantService extends ChangeNotifier {
   Future<SharedPreferences> sharedPreferences() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     return pref;
   }
 
-  Delegue? _localClient;
-  Delegue? get user => _localClient;
+  Enseignant? _localClient;
+  Enseignant? get user => _localClient;
   bool _isLoggedIn = false;
   bool get authenticate {
     sharedPreferences().then((value) {
@@ -24,7 +25,8 @@ class AuthService extends ChangeNotifier {
         //logout();
         //print(json.decode(value.getString("user").toString()));
 
-        _localClient = Delegue.fromJson(json.decode(value.getString("user")!));
+        _localClient =
+            Enseignant.fromJson(json.decode(value.getString("user")!));
       }
       // print(json.decode(value.getString("user")!));
       notifyListeners();
@@ -36,7 +38,7 @@ class AuthService extends ChangeNotifier {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     Dio.Response response = await dio().get(
-      "Delegue/$email/$password",
+      "enseignant/$email/$password",
     );
     //print(response);
     print(response);
@@ -66,7 +68,7 @@ class AuthService extends ChangeNotifier {
     return response.data;
   }
 
-  Future register(Delegue delegue) async {
+  Future register(Enseignant delegue) async {
     print(delegue.toJson());
     Dio.Response response = await dio().post("clients", data: delegue.toJson());
     print(response);
