@@ -4,10 +4,10 @@ import 'package:foft/api/AuthServiceEnseignant.dart';
 import 'package:foft/api/FicheEnseignantService.dart';
 import 'package:foft/api/FicheService.dart';
 import 'package:foft/api/date.dart';
-//import 'package:foft/screens/enseignant/HomeScreen.dart';
-import 'package:foft/screens/HomeScreen.dart';
-//import 'package:foft/screens/enseignant/login.dart';
-import 'package:foft/screens/login.dart';
+import 'package:foft/screens/enseignant/HomeScreen.dart';
+//import 'package:foft/screens/HomeScreen.dart';
+import 'package:foft/screens/enseignant/login.dart';
+//import 'package:foft/screens/login.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -29,10 +29,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final authService = context.watch<AuthService>();
-    //final authService = context.watch<AuthEnseignantService>();
+    //final authService = context.watch<AuthService>();
+    final authService = context.watch<AuthEnseignantService>();
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FOFT',
       theme: ThemeData(
         // This is the theme of your applica
         // tion.

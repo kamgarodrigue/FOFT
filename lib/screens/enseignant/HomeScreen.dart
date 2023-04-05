@@ -83,11 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       BottomNavigationBarItem(
         activeIcon: Icon(
-          Icons.add,
+          Icons.check,
           color: kPrimaryColors,
         ),
         icon: Icon(
-          Icons.add,
+          Icons.check,
           color: kSecondaryColor,
         ),
         /* icon: Text(
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircleAvatar(
                     radius: 35,
                     backgroundColor: kLinckColor,
-                    child: Icon(Icons.add),
+                    child: Icon(Icons.check, size: 30),
                   ),
                 )),
           )

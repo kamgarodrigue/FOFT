@@ -56,6 +56,17 @@ class FicheService extends ChangeNotifier {
     return responsed.body;
   }
 
+  Future getFiche(iddelegue, state) async {
+    print(iddelegue.toString() + state.toString());
+    Dio.Response response = await dio().get(
+      "fichedelegueandstate/$iddelegue/$state",
+    );
+    _fichevalider = decodeList(response.data);
+
+    notifyListeners();
+    return response;
+  }
+
   Future Updatefiche(Fiche fiche) async {
     Dio.Response response =
         await dio().put("Fiche/${fiche.id}", data: fiche.toJson());

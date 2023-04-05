@@ -73,7 +73,7 @@ class _HomeEnseignentState extends State<HomeEnseignent> {
           child: ListView(
             padding: EdgeInsets.all(16),
             children: [
-              Text("fiches du jour",
+              Text("fiches en Encour",
                   style: TextStyle(
                       color: kLinckColor,
                       fontSize: 20,

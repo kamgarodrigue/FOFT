@@ -29,7 +29,7 @@ class _RejectFicheState extends State<RejectFiche> {
     super.initState();
     context
         .read<FicheService>()
-        .Ficherejeter(context.read<AuthEnseignantService>().user!.id, 2);
+        .Ficherejeter(context.read<AuthService>().user!.id, 2);
   }
 
   @override
@@ -58,7 +58,7 @@ class _RejectFicheState extends State<RejectFiche> {
               text: TextSpan(
                   children: [
                 TextSpan(
-                    text: "kamga rodrigue",
+                    text: auth.user!.nom.toString(),
                     style: TextStyle(
                         color: kLinckColor, fontSize: 17, fontFamily: 'Medium'))
               ],

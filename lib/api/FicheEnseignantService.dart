@@ -25,8 +25,8 @@ class FicheEnseignantService extends ChangeNotifier {
   }
 
   Future validerfiche(id, image, Fiche fiche) async {
-    var request = http.MultipartRequest("PUT",
-        Uri.parse("http://192.168.0.100:8080/addSignatureEnseignant/$id"));
+    var request = http.MultipartRequest(
+        "PUT", Uri.parse(baseurl + "/addSignatureEnseignant/$id"));
     request.files.add(await http.MultipartFile.fromBytes(
       "signature",
       image,
@@ -65,8 +65,8 @@ class FicheEnseignantService extends ChangeNotifier {
       "specialite": fiche.specialite["id"].toString(),
       "seance": fiche.seance["id"].toString()
     };
-    var request = http.MultipartRequest(
-        "POST", Uri.parse("http://192.168.0.100:8080/createFiche"));
+    var request =
+        http.MultipartRequest("POST", Uri.parse(baseurl + "/createFiche"));
     request.files.add(await http.MultipartFile.fromBytes(
       "signatureDelegue",
       imag,

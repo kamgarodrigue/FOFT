@@ -64,7 +64,7 @@ class _CardFicheState extends State<CardFiche> {
                     title: Text("${widget.fiche.enseignant.nom}",
                         style: TextStyle(
                             color: kBlack, fontSize: 16, fontFamily: 'Bold')),
-                    subtitle: Text("IL YA ENVIRON 3 MINUTES",
+                    subtitle: Text("",
                         style: TextStyle(
                             color: kBlack, fontSize: 11, fontFamily: 'Light')),
                   )
@@ -76,7 +76,7 @@ class _CardFicheState extends State<CardFiche> {
                     title: Text("${widget.fiche.enseignant.nom}",
                         style: TextStyle(
                             color: kBlack, fontSize: 16, fontFamily: 'Bold')),
-                    subtitle: Text("IL YA ENVIRON 3 MINUTES",
+                    subtitle: Text("",
                         style: TextStyle(
                             color: kBlack, fontSize: 11, fontFamily: 'Light')),
                   ),

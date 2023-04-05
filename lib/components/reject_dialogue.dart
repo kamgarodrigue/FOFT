@@ -99,7 +99,7 @@ class _RejectDialogueState extends State<RejectDialogue> {
                                 showTopSnackBar(
                                   context,
                                   CustomSnackBar.success(
-                                    message: "fiche modifier!",
+                                    message: "fiche rejeter!",
                                   ),
                                 )
                               })

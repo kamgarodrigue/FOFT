@@ -35,8 +35,8 @@ class _RejectFicheEnseignantState extends State<RejectFicheEnseignant> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = context.watch<AuthService>();
-    final fiche = context.watch<FicheService>();
+    final auth = context.watch<AuthEnseignantService>();
+    final fiche = context.watch<FicheEnseignantService>();
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -60,7 +60,7 @@ class _RejectFicheEnseignantState extends State<RejectFicheEnseignant> {
               text: TextSpan(
                   children: [
                 TextSpan(
-                    text: "kamga rodrigue",
+                    text: auth.user!.nom,
                     style: TextStyle(
                         color: kLinckColor, fontSize: 17, fontFamily: 'Medium'))
               ],
